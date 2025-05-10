@@ -3,9 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace blogSite.Model.Context
 {
-    public class blogSiteContex:DbContext
+    public class BlogSiteContex:DbContext
     {
-        public blogSiteContex(DbContextOptions dbContextOptions):base(dbContextOptions) { }
+        public BlogSiteContex(DbContextOptions<BlogSiteContex> options):base(options)
+        {
+
+        }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
