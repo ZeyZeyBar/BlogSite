@@ -6,6 +6,7 @@ using System.Diagnostics;
 
 namespace blogSite.WebUI.Controllers
 {
+    //ADMİN SAYFASINA GEÇTİN
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
