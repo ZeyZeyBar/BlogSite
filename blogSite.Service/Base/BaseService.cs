@@ -7,8 +7,8 @@ namespace blogSite.Service.Base
 {
     public class BaseService<T> : ICoreService<T> where T : CoreEntity
     {
-        private readonly blogSiteContex _db;
-        public BaseService(blogSiteContex db)
+        private readonly BlogSiteContex _db;
+        public BaseService(BlogSiteContex db)
         {
             _db = db;
         }

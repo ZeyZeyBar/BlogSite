@@ -1,4 +1,17 @@
+using blogSite.Core.Service;
+using blogSite.Model.Context;
+using blogSite.Service.Base;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//burada connection stirng yer önemli yanlış yerde oluşturmuyor.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<BlogSiteContex>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped(typeof(ICoreService<>), typeof(BaseService<>));
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
