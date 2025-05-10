@@ -1,4 +1,5 @@
 ﻿using blogSite.Model.Entities;
+using blogSite.Model.Maps;
 using Microsoft.EntityFrameworkCore;
 
 namespace blogSite.Model.Context
@@ -10,11 +11,18 @@ namespace blogSite.Model.Context
 
         }
 
-        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.ConfigureConventions(configurationBuilder);
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new AboutMap());
+          modelBuilder.ApplyConfiguration(new FormContactMap());    
+            modelBuilder.ApplyConfiguration(new HomeDetailMap());
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<About> Abouts { get; set; }
+        public DbSet<FormContact> FormContacts { get; set; }
+
+        public DbSet<HomeDetail> HomeDetails { get; set; }
     }
 }

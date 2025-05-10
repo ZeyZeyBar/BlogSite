@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using blogSite.Model.Context;
 
@@ -11,9 +12,11 @@ using blogSite.Model.Context;
 namespace blogSite.Model.Migrations
 {
     [DbContext(typeof(BlogSiteContex))]
-    partial class BlogSiteContexModelSnapshot : ModelSnapshot
+    [Migration("20250510191350_FormContactTable")]
+    partial class FormContactTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,35 +90,6 @@ namespace blogSite.Model.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("FormContacts");
-                });
-
-            modelBuilder.Entity("blogSite.Model.Entities.HomeDetail", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<DateTime?>("CreateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Details")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("HomeDetails");
                 });
 
             modelBuilder.Entity("blogSite.Model.Entities.User", b =>
