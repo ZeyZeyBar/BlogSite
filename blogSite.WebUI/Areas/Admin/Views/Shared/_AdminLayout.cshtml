@@ -61,8 +61,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Admin Kullanıcı:</h6>
-                        <a class="collapse-item" href="buttons.html">Kullanıcı Listele</a>
-                        <a class="collapse-item" href="cards.html">Kullanıcı Ekle</a>
+                        <a class="collapse-item" asp-area="Admin" asp-controller="User" asp-action="GetAllUser">Kullanıcı Listele</a>
+                        <a class="collapse-item" asp-area="Admin" asp-controller="User" asp-action="AddUser">Kullanıcı Ekle</a>
                     </div>
                 </div>
             </li>
