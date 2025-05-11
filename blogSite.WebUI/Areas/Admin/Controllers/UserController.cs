@@ -5,33 +5,31 @@ using Microsoft.AspNetCore.Mvc;
 namespace blogSite.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AboutController : Controller
+    public class UserController : Controller
     {
-        private readonly ICoreService<About> _aboutDb;
+        private readonly ICoreService<User> _userDb;
 
-        public AboutController(ICoreService<About> aboutDb)
+        public UserController(ICoreService<User> userDb)
         {
-            _aboutDb = aboutDb;           
+            _userDb = userDb;              
         }
-        public IActionResult GetAllAboutList()
+        public IActionResult GetAllUser()
         {
-           var about = _aboutDb.GetAll();
-            return View(about);
-           // return View();
+            var user = _userDb.GetAll();
+            return View(user);
         }
-
         [HttpPost]
-        public IActionResult AddAbout(About about)
+        public IActionResult AddUser(User user)
         {
             if (ModelState.IsValid)
             {
-                about.CreateTime = DateTime.Now;
-               // adminUser.UserRoles = adminUser.UserRoles?.Any() == true ? adminUser.UserRoles : new List<UserRole>();
-                var result = _aboutDb.Add(about);
+                user.CreateTime = DateTime.Now;
+                // adminUser.UserRoles = adminUser.UserRoles?.Any() == true ? adminUser.UserRoles : new List<UserRole>();
+                var result = _userDb.Add(user);
                 if (result)
                 {
-                    TempData["SuccesMessage"] = "Hakkında içeriği başarılı bir şekilde eklendi.";
-                    return RedirectToAction("GetAllAboutList");
+                    TempData["SuccesMessage"] = "Yeni Kullanıcı başarılı bir şekilde eklendi.";
+                    return RedirectToAction("GetAllUser");
                 }
                 else
                 {
@@ -47,10 +45,10 @@ namespace blogSite.WebUI.Areas.Admin.Controllers
                     Console.WriteLine($"Hata: {error.ErrorMessage}");
                 }
             }
-            return View(about);
+            return View(user);
         }
         [HttpGet]
-        public IActionResult AddAbout()
+        public IActionResult AddUser()
         {
             return View();
         }
