@@ -2,6 +2,7 @@
 using blogSite.Model.Entities;
 using blogSite.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace blogSite.WebUI.Controllers
@@ -28,6 +29,12 @@ namespace blogSite.WebUI.Controllers
         {
             //var about =_aboutDb.GetAll();
             // return View(about);
+            var about =_aboutDb.GetAll();
+            if(about !=null)
+            {
+                var lastAbout = about.OrderByDescending(a => a.ID).FirstOrDefault();
+                return View(lastAbout);
+            }
             return View();
         }
         public IActionResult Contact() 
