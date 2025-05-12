@@ -1,9 +1,11 @@
 ﻿using blogSite.Core.Service;
 using blogSite.Model.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace blogSite.WebUI.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class ContactFormController : Controller
     {      
