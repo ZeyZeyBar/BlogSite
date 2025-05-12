@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using blogSite.Model.Context;
 
@@ -11,9 +12,11 @@ using blogSite.Model.Context;
 namespace blogSite.Model.Migrations
 {
     [DbContext(typeof(BlogSiteContex))]
-    partial class BlogSiteContexModelSnapshot : ModelSnapshot
+    [Migration("20250512123449_IsActiveFlagAdded")]
+    partial class IsActiveFlagAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

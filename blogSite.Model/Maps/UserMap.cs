@@ -23,6 +23,9 @@ namespace blogSite.Model.Maps
             builder.Property(x=>x.Password)
                 .HasMaxLength(100)
                 .IsRequired();
+
+            builder.Property(x => x.IsActive)
+                .IsRequired();
         }
     }
 }

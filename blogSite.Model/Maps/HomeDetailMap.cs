@@ -15,6 +15,9 @@ namespace blogSite.Model.Maps
             builder.Property(x=>x.Details)
                 .HasMaxLength(250)
                 .IsRequired();
+
+            builder.Property(x => x.IsActive)
+                .IsRequired();
         }
     }
 }
