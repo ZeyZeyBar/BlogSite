@@ -57,6 +57,7 @@
                                         <th>Oluşturma Zamanı</th>
                                         <th>Güncelleme Zamanı</th>
                                         <th>Aktif Mi?</th>
+                                        <th>Güncelle</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -66,6 +67,7 @@
                                         <th>Oluşturma Zamanı</th>
                                         <th>Güncelleme Zamanı</th>
                                         <th>Aktif Mi?</th>
+                                        <th>Güncelle</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -77,6 +79,7 @@
                                             <td>@item.CreateTime</td>
                                             <td>@item.UpdateTime</td>
                                             <td>@item.IsActive</td>
+                                            <td>  <a href="@Url.Action("UpdateAbout", "About", new { area = "Admin", id = item.ID })" class="btn btn-warning btn-sm">Güncelle</a></td>
                                         </tr>
                                     }                                    
                                 </tbody>
