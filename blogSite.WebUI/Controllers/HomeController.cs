@@ -27,13 +27,14 @@ namespace blogSite.WebUI.Controllers
 
         public IActionResult About()
         {
-            //var about =_aboutDb.GetAll();
-            // return View(about);
             var about =_aboutDb.GetAll();
             if(about !=null)
             {
-                var lastAbout = about.OrderByDescending(a => a.ID).FirstOrDefault();
-                return View(lastAbout);
+                var activeAbout = about
+                    .Where(a => a.IsActive)
+                    .OrderByDescending(a => a.ID)
+                    .FirstOrDefault();
+               return View(activeAbout);   
             }
             return View();
         }
