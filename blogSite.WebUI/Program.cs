@@ -1,6 +1,7 @@
 using blogSite.Core.Service;
 using blogSite.Model.Context;
 using blogSite.Service.Base;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,11 +12,22 @@ builder.Services.AddDbContext<BlogSiteContex>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped(typeof(ICoreService<>), typeof(BaseService<>));
+// HTTP Context Accessor
+builder.Services.AddHttpContextAccessor();
 
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/AdminAccountIn/Login"; // Giriş sayfası yolu
+                    options.AccessDeniedPath = "/AdminAccountIn/AccessDenied"; // Yetkisiz erişim sayfası
+                });
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,11 +43,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
