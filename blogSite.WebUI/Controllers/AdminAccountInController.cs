@@ -31,28 +31,24 @@ namespace blogSite.WebUI.Controllers
                             .GetAll()
                             .FirstOrDefault(u => u.UserName == model.UserName && u.Password == model.Password);
 
-                if (user != null)
+                if (user != null && user.IsActive == true)
                 {
-                    // claims(talepler)
-                    var claims = new List<Claim>()
+                      // claims(talepler)
+                   var claims = new List<Claim>()
                     {
                         new Claim(ClaimTypes.Name, model.UserName)
                     };
-
                     // identity oluşturma
-                    var users = new ClaimsIdentity(claims, "Login");
-
+                     var users = new ClaimsIdentity(claims, "Login");
                     // Prensip(Özellik) oluşturma
                     ClaimsPrincipal principal = new ClaimsPrincipal(users);
 
                     await HttpContext.SignInAsync(principal); // Login oluyoruz
-                    var username = principal.Identity.Name;
+                     var username = principal.Identity.Name;
 
-                    if ((username)!=null)
+                     if ((username) != null)
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
-
-                    // return RedirectToAction("Index", "Home", new { area = "Admin" });
-                }
+                 }
                 else
                 {
                     return RedirectToAction("AccessDenied");

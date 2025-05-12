@@ -56,5 +56,52 @@ namespace blogSite.WebUI.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult UpdateAbout(int id, About aboutnew)
+        {
+            var about=_aboutDb.GetById(id);
+            if (aboutnew !=null)
+            {                
+                about.UpdateTime = DateTime.Now;
+                about.Title = aboutnew.Title;
+                about.Description = aboutnew.Description;
+                about.IsActive=aboutnew.IsActive;    
+
+                var result = _aboutDb.Update(about);
+                if (result)
+                {
+                    TempData["SuccesMessage"] = "Hakkında içeriği başarılı bir şekilde güncellendi.";
+                    return RedirectToAction("GetAllAboutList");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Hata oluştu tekrar deneyin";
+                }
+            }
+            else
+            {
+                // Eğer model geçerli değilse, ModelState hatalarını logla
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine($"Hata: {error.ErrorMessage}");
+                }
+            }
+            return View(about); ;
+        }
+        [HttpGet]
+        public IActionResult UpdateAbout(int id)
+        {
+            var about = _aboutDb.GetById(id);
+
+            if (about == null)
+            {
+                return NotFound(); // bulunamazsa 404 döndür
+            }
+            // bulundu, View'a Model olarak gönderiyoruz
+            return View(about);
+           
+        }
     }
 }
