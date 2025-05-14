@@ -7,7 +7,10 @@ using System.Diagnostics;
 
 namespace blogSite.WebUI.Controllers
 {
-    //ADMİN SAYFASINA GEÇTİN
+    //ADMIN SAYFA İÇERİĞİ DZENLENECKE, LOGIN SAYFASI DÜZENLENECEK. 
+    //RESIM EKLEME YAPISI İSTEĞE BAĞLI YKLENECEK.
+    //ÜRÜN DETAY SAYFASI EKLENECEK.
+    //LİNK VERME SHOPIER VS. EKLENECEK.
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
