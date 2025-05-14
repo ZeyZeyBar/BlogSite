@@ -13,15 +13,25 @@ namespace blogSite.WebUI.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ICoreService<About> _aboutDb;
         private readonly ICoreService<FormContact> _formContactDb;
-        public HomeController(ILogger<HomeController> logger, ICoreService<About> aboutDb, ICoreService<FormContact> formContactDb)
+        private readonly ICoreService<HomeDetail> _homeDetailDb;
+        public HomeController(ILogger<HomeController> logger, ICoreService<About> aboutDb, ICoreService<FormContact> formContactDb, ICoreService<HomeDetail> homeDetailDb)
         {
             _logger = logger;
             _aboutDb = aboutDb;
             _formContactDb = formContactDb;
+            _homeDetailDb = homeDetailDb;
         }
 
         public IActionResult Index()
         {
+            var content = _homeDetailDb.GetAll();
+            if (content != null)
+            {
+                var activeContent = content
+                    .Where(a => a.IsActive)
+                    .OrderByDescending(a => a.ID).ToList();
+                return View(activeContent);
+            }
             return View();
         }
 
