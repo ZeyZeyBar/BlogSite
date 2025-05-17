@@ -21,12 +21,18 @@ namespace blogSite.WebUI.Areas.Admin.Controllers
             return View(content);
         }
         [HttpPost]
-        public IActionResult AddContent(HomeDetail content)
+        public IActionResult AddContent(HomeDetail content, IFormFile uploadedImage)
         {
             if (ModelState.IsValid)
             {
                 content.CreateTime = DateTime.Now;
-                
+                byte[] imageBytes;
+                using (var memoryStream = new MemoryStream())
+                {
+                    uploadedImage.CopyTo(memoryStream);
+                    imageBytes = memoryStream.ToArray();
+                }
+                content.Image = imageBytes;
                 var result = _hdetailDb.Add(content);
                 if (result)
                 {
@@ -56,7 +62,7 @@ namespace blogSite.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateContent(int id, HomeDetail contentNew)
+        public IActionResult UpdateContent(int id, HomeDetail contentNew, IFormFile uploadedImage)
         {
             var content = _hdetailDb.GetById(id);
             if (contentNew != null)
@@ -65,7 +71,24 @@ namespace blogSite.WebUI.Areas.Admin.Controllers
                 content.Title = contentNew.Title;
                 content.Details = contentNew.Details;
                 content.IsActive = contentNew.IsActive;
+                if (uploadedImage != null && uploadedImage.Length > 0)
+                {
+                    // Resim byte[]'e dönüştürülür ve işlenir.
+                    byte[] imageBytes;
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        uploadedImage.CopyTo(memoryStream);
+                        imageBytes = memoryStream.ToArray();
+                    }
 
+                    // Mevcut resmi güncelleyin veya başka bir işlem yapın.
+                    content.Image = imageBytes;
+                }
+                else
+                {
+                    // Resim gönderilmediyse mevcut durumu koruyun.
+                    // Mevcut işleminize göre burayı düzenleyebilirsiniz.
+                }
                 var result = _hdetailDb.Update(content);
                 if (result)
                 {
@@ -88,19 +111,7 @@ namespace blogSite.WebUI.Areas.Admin.Controllers
             }
             return View(content); ;
         }
-        [HttpGet]
-        public IActionResult UpdateContent(int id)
-        {
-            var content = _hdetailDb.GetById(id);
-
-            if (content == null)
-            {
-                return NotFound(); // bulunamazsa 404 döndür
-            }
-            // bulundu, View'a Model olarak gönderiyoruz
-            return View(content);
-
+      
         }
 
     }
-}

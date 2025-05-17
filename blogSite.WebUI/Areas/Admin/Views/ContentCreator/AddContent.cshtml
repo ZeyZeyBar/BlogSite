@@ -66,7 +66,7 @@
                                             <div class="clearfix"></div>
                                         </div>
                                         <div class="x_content">
-                                            <form asp-area="Admin" asp-controller="ContentCreator" asp-action="AddContent" method="post" novalidate>
+                                            <form asp-area="Admin" asp-controller="ContentCreator" asp-action="AddContent" method="post" novalidate enctype="multipart/form-data">
                                                 <span class="section">Hakkında Ekleme İçeriği</span>
                                                 <div class="field item form-group">
                                                     <label class="col-form-label col-md-3 col-sm-3  label-align">Başlık<span class="required">*</span></label>
@@ -79,6 +79,13 @@
                                                     <label class="col-form-label col-md-3 col-sm-3  label-align">İçerik <span class="required">*</span></label>
                                                     <div class="col-md-6 col-sm-6">
                                                         <input class="form-control" asp-for="Details" placeholder=" İçerik*" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="field item form-group">
+                                                    <label class="col-form-label col-md-3 col-sm-3  label-align" for="Image">Resmi<span class="required">*</span></label>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <input type="file" id="uploadedImage" name="uploadedImage" value="uploadedImage" accept="image/*" required />
                                                     </div>
                                                 </div>
 

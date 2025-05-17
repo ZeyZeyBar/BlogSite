@@ -54,6 +54,7 @@
                                     <tr>
                                         <th>Başlık</th>
                                         <th>İçerik</th>
+                                        <th>Resim</th>
                                         <th>Oluşturma Zamanı</th>
                                         <th>Güncelleme Zamanı</th>
                                         <th>Aktif Mi?</th>
@@ -64,6 +65,7 @@
                                     <tr>
                                         <th>Başlık</th>
                                         <th>İçerik</th>
+                                        <th>Resim</th>
                                         <th>Oluşturma Zamanı</th>
                                         <th>Güncelleme Zamanı</th>
                                         <th>Aktif Mi?</th>
@@ -76,6 +78,13 @@
                                         <tr>
                                             <td>@item.Title</td>
                                             <td>@item.Details</td>
+                                            <td class=" ">
+                                                @if (item.Image != null && item.Image.Length > 0)
+                                                {
+                                                    string uploadedImage = Convert.ToBase64String(item.Image);
+                                                    <img src="data:image/jpeg;base64,@uploadedImage" alt="Product Image" style="width:100px;height:100px" />
+                                                }
+                                            </td>
                                             <td>@item.CreateTime</td>
                                             <td>@item.UpdateTime</td>
                                             <td>@item.IsActive</td>
