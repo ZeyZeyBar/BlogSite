@@ -25,19 +25,39 @@ namespace blogSite.WebUI.Controllers
             _homeDetailDb = homeDetailDb;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            var content = _homeDetailDb.GetAll();
-            if (content != null)
-            {
-                var activeContent = content
-                    .Where(a => a.IsActive)
-                    .OrderByDescending(a => a.ID).ToList();
-                return View(activeContent);
-            }
-            return View();
+            int pageSize = 3;
+
+            var allContent = _homeDetailDb.GetAll()
+                .Where(a => a.IsActive)
+                .OrderByDescending(a => a.ID)
+                .ToList();
+
+            var pagedContent = allContent
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.HasMore = allContent.Count > page * pageSize;
+
+            return View(pagedContent);
         }
 
+        [HttpGet]
+        public IActionResult UpdateContent(int id)
+        {
+            var content = _homeDetailDb.GetById(id);
+
+            if (content == null)
+            {
+                return NotFound(); // bulunamazsa 404 döndür
+            }
+            // bulundu, View'a Model olarak gönderiyoruz
+            return View(content);
+
+        }
         public IActionResult About()
         {
             var about =_aboutDb.GetAll();
@@ -51,6 +71,19 @@ namespace blogSite.WebUI.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public IActionResult ContentDetail(int id)
+        {
+            var content = _homeDetailDb.GetById(id);
+
+            if (content == null)
+            {
+                return NotFound(); // bulunamazsa 404 döndür
+            }
+            // bulundu, View'a Model olarak gönderiyoruz
+            return View(content);
+        }
+
         public IActionResult Contact() 
         {
             return View();

@@ -66,7 +66,7 @@
                                             <div class="clearfix"></div>
                                         </div>
                                         <div class="x_content">
-                                            <form asp-area="Admin" asp-controller="ContentCreator" asp-action="UpdateContent" method="post" novalidate>
+                                            <form asp-area="Admin" asp-controller="ContentCreator" asp-action="UpdateContent" method="post" novalidate enctype="multipart/form-data">
                                                 <span class="section">Ana Sayfa içerik Güncelleme</span>
                                                 <div class="field item form-group">
                                                     <label class="col-form-label col-md-3 col-sm-3  label-align">Başlık<span class="required">*</span></label>
@@ -80,6 +80,22 @@
                                                     <div class="col-md-6 col-sm-6">
                                                         <input class="form-control" asp-for="Details" placeholder=" @Model.Details*" />
                                                     </div>
+                                                </div>
+
+                                                <div class="field item form-group">
+                                                    <label class="text-black" for="fname">Resim</label>
+                                                    <br />
+                                                    @if (Model.Image != null)
+                                                    {
+                                                        string imageBase64 = Convert.ToBase64String(Model.Image);
+                                                        string imageSrc = $"data:image/png;base64,{imageBase64}";
+                                                        <img src="@imageSrc" alt="Image" width="200" />
+                                                    }
+                                                </div>
+
+                                                <div class="field item form-group">
+                                                    <label for="Image">Resim Seç:</label>
+                                                    <input type="file" id="uploadedImage" name="uploadedImage" accept="image/*" />
                                                 </div>
 
                                                 <div class="field item form-group">

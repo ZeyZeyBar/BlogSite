@@ -1,6 +1,6 @@
-﻿@model IEnumerable<blogSite.Model.Entities.HomeDetail>
+﻿@model blogSite.Model.Entities.HomeDetail
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "ContentDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,7 +12,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Blog Site</title>
-    <link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -24,56 +24,35 @@
 <body>
     <!-- Navigation-->
     <!-- Page Header-->
-    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+    <header class="masthead" style="background-image: url('@Url.Content("~/assets/img/about-bg.jpg")')">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="site-heading">
-                        <h1>Blog sitesi</h1>
-                        <span class="subheading">İhtiyacınıza göre içerikleri buradan ulaşabilirsiniz.</span>
+                    <div class="page-heading">
+                        <h1>@Model.Title</h1>
+                        <span class="subheading"></span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
     <!-- Main Content-->
-    @foreach (var item in Model)
-    {
+    <main class="mb-4">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="post-preview">
-                        <a href="@Url.Action("ContentDetail", "Home", new { area = "", id = item.ID })">
-                            <h2 class="post-title">@item.Title</h2>
-                            <h4>
-                                @if (item.Image != null && item.Image.Length > 0)
-                                {
-                                    string uploadedImage = Convert.ToBase64String(item.Image);
-                                    <img src="data:image/jpeg;base64,@uploadedImage" alt="Product Image" style="width:100px;height:100px" />
-                                }
-                            </h4>
-                            <h3 class="post-subtitle">@item.Details</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a >Yazar Tarafından Eklendi</a>
-                        </p>
-                    </div>
-                    <hr class="my-4" />
+                    @Model.Details
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                @if (Model.Image != null && Model.Image.Length > 0)
+                {
+                    string uploadedImage = Convert.ToBase64String(Model.Image);
+                    <img src="data:image/jpeg;base64,@uploadedImage" alt="Product Image" style="width:100px;height:100px" />
+                }
                 </div>
             </div>
         </div>
-    }
-
-    @if (ViewBag.HasMore)
-    {
-        <div class="d-flex justify-content-end mb-4">
-            <a class="btn btn-primary text-uppercase" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">
-                Older Posts →
-            </a>
-        </div>
-    }
-
+    </main>
     <!-- Footer-->
     <footer class="border-top">
         <div class="container px-4 px-lg-5">
@@ -105,7 +84,7 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="small text-center text-muted fst-italic">Site yeniden tasarlandı - 2025</div>
+                    <div class="small text-center text-muted fst-italic">İçerik Güncellendi. 2025</div>
                 </div>
             </div>
         </div>
@@ -116,3 +95,5 @@
     <script src="js/scripts.js"></script>
 </body>
 </html>
+
+
