@@ -11,17 +11,28 @@ namespace blogSite.WebUI.Areas.Admin.Controllers
     {
         private readonly ICoreService<About> _aboutDb;
         private readonly ICoreService<User> _userDb;
+        private readonly ICoreService<FormContact> _formDb;
+
+        public HomeController(ICoreService<About> aboutDb, ICoreService<User> userDb,ICoreService<FormContact> formDb)
+        {
+            _aboutDb = aboutDb;
+            _formDb = formDb;
+            _userDb = userDb;
+
+        }
         public IActionResult Index()
         {
-          //  var username = PriorityQueue;
+            //  var username = PriorityQueue;
 
             //if (string.IsNullOrEmpty(userName))
             //{
             //    return RedirectToAction("Login", "Account");  // Login sayfasına yönlendirme
             //}
 
-          //  ViewBag.UserName = username;
-            return View();
+            //  ViewBag.UserName = username;
+            var comeIngMessageCounts = _formDb.GetAll();
+             
+            return View(comeIngMessageCounts);
         }
     }
 }

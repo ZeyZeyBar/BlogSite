@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace blogSite.WebUI.Controllers
 {
-    //ADMIN SAYFA İÇERİĞİ DZENLENECKE, LOGIN SAYFASI DÜZENLENECEK. 
+  
     //RESIM EKLEME YAPISI İSTEĞE BAĞLI YKLENECEK.
     //ÜRÜN DETAY SAYFASI EKLENECEK.
     //LİNK VERME SHOPIER VS. EKLENECEK.
